@@ -1,0 +1,10 @@
+<br />
+<div align="center">
+  <form name="chngperm" action="<?php echo $posturl;?>" method="post">
+    <?php homeroom_user_setting($students, $courseid, $homeroom->id, $name_pattern, $sort, $order);?>
+    <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+	<input type="submit" value="<?php echo get_string('update','homeroom');?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="reset"  value="<?php echo get_string('reset');?>" />
+  </form>
+</div>
+<br />

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/homeroom/db" VERSION="20130919" COMMENT="XMLDB file for Home Room module"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="homeroom" COMMENT="XMLDB file for Home Room module main field." NEXT="homeroom_user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" PREVIOUS="course" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="intro" NEXT="namepattern"/>
+        <FIELD NAME="namepattern" TYPE="char" LENGTH="16" NOTNULL="true" DEFAULT="lastname" SEQUENCE="false" PREVIOUS="introformat" NEXT="attendplugin"/>
+        <FIELD NAME="attendplugin" TYPE="char" LENGTH="32" NOTNULL="true" DEFAULT="autoattend" SEQUENCE="false" PREVIOUS="namepattern" NEXT="feedback"/>
+        <FIELD NAME="feedback" TYPE="int" LENGTH="2" NOTNULL="false" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="attendplugin" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="feedback"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="homeroom_user" COMMENT="XMLDB file for Home Room module user definition field" PREVIOUS="homeroom" NEXT="homeroom_student">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="roomid"/>
+        <FIELD NAME="roomid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="roomid" NEXT="authorize"/>
+        <FIELD NAME="authorize" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="0:forbidden, 1:oneself, 2:all students, 3:specific students" PREVIOUS="userid" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="authorize"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="roomid" UNIQUE="false" FIELDS="roomid" NEXT="ruid"/>
+        <INDEX NAME="ruid" UNIQUE="true" FIELDS="roomid, userid" PREVIOUS="roomid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="homeroom_student" COMMENT="XMLDB file for Home Room module student definition field" PREVIOUS="homeroom_user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" NEXT="roomid"/>
+        <FIELD NAME="roomid" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="teacher"/>
+        <FIELD NAME="teacher" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="roomid" NEXT="student"/>
+        <FIELD NAME="student" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="teacher" NEXT="selected"/>
+        <FIELD NAME="selected" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Is the student selected? 0:No, 1:Yes" PREVIOUS="student"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="roomid" UNIQUE="false" FIELDS="roomid" NEXT="teacher"/>
+        <INDEX NAME="teacher" UNIQUE="false" FIELDS="teacher" PREVIOUS="roomid" NEXT="student"/>
+        <INDEX NAME="student" UNIQUE="false" FIELDS="student" PREVIOUS="teacher"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

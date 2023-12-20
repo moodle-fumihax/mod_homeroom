@@ -1,0 +1,28 @@
+<table border="0" align="center">
+  <tr>
+    <td align="center">
+      <table border="0" style="margin: 0px 0px 0px 0px;">
+        <tr>
+          <td colspan="3"><h2><?php echo $course_fullname;?></h2></td>
+        </tr>
+        <tr>
+          <td>
+            <form name="download" action="<?php echo $downurl;?>" method="post">
+              <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+              <input type="hidden" name="download" value="excel" />
+              <input type="submit" value="<?php print_string('downloadexcel','homeroom')?>" />
+            </form>
+          </td>
+          <td>&nbsp;</td>
+          <td>
+            <form name="download" action="<?php echo $downurl;?>" method="post">
+              <input type="hidden" name="sesskey"  value="<?php echo sesskey();?>" />
+              <input type="hidden" name="download" value="text" />
+              <input type="submit" value="<?php print_string('downloadtext','homeroom')?>" />
+            </form>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

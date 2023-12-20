@@ -1,0 +1,60 @@
+<div align="center" style="overflow-x: auto;">
+
+<!--
+Course Report Header 
+-->
+
+<table class="userinfobox">
+  <?php if (!$printing and $classid>=0) { ?>
+    <tr>
+      <td colspan="2" class="generalboxcontent">
+        <div align="right">
+          <a href="<?php echo $printUrl; ?>" target="_blank">
+            [<?php print_string('forprinting','homeroom');?>]
+          </a>
+        </div>
+      </td>
+    </tr>
+  <?php } ?>
+
+  <tr>
+    <td class="generalboxcontent">
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <tr>
+          <td>
+            <?php if (!$printing) { 
+              $pic_options = array('size'=>60, 'link'=>true, 'alttext'=>true, 'courseid'=>$crsid, 'popup'=>true);
+              echo $OUTPUT->user_picture($user, $pic_options);
+            } ?>
+          </td>
+          <td valign="bottom">
+            <font size="+1"><strong><?php echo $username.'&nbsp;&nbsp;'.$disp_idnum;?></strong></font>
+          </td>
+        </tr>
+      </table>
+      <hr />
+
+      <table border="0" cellpadding="0" cellspacing="0" class="list">
+        <?php 
+          if ($CFG->output_idnumber) {
+              homeroom_print_user_course_row('ID:&nbsp;', "<strong>$user_idnum</strong>");
+          }
+          homeroom_print_user_course_row(get_string('coursename','homeroom').':&nbsp;', "<strong>$course->fullname</strong>");
+          homeroom_print_user_course_row(get_string('classname', 'homeroom').':&nbsp;', "<strong>$classname</strong>");
+          if ($classid>=0) {        // !出欠から除外
+            homeroom_print_user_course_row(get_string('sessionscompleted','homeroom').':&nbsp;', "<strong>$complete</strong>");
+            $absence = 0;
+            foreach($settings as $set) {
+                if ($set->status=='X') {
+                    $absence+= $summary[$set->status];
+                }
+                else if ($set->status!='Y') {
+                    homeroom_print_user_course_row($acronyms[$set->status]->description.':&nbsp;', '<strong>'.$summary[$set->status].'</strong>');
+                }
+            }
+            homeroom_print_user_course_row($acronyms['X']->description.':&nbsp;', '<strong>'.$absence.'</strong>');
+            homeroom_print_user_course_row(get_string('attendpercent','homeroom').':&nbsp;', "<strong>$percent</strong>");
+            homeroom_print_user_course_row(get_string('attendgrade','homeroom').':&nbsp;', "<strong>$grade</strong> / $maxgrade");
+          }
+        ?>
+      </table>
