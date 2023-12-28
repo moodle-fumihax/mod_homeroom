@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 
 require_once('jbxl/jbxl_moodle_selector.php');

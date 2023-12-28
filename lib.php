@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /// Library of functions and constants for module homeroom
 

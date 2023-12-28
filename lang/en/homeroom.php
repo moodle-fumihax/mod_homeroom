@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $string['Aacronymfull'] = 'All Attendance';
 $string['Amethod']      = 'A';
 $string['Amethodfull']  = 'Automatic';

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $string['Adesc'] 		= '全ての出欠';
 $string['Amethod'] 		= '自';
 $string['Amethodfull'] 	= '自動';

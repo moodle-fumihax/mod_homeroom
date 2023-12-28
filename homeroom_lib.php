@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 // function homeroom_get_authoriz($courseid, $roomid, $userid)
 // function homeroom_get_all_members()

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 function xmldb_homeroom_upgrade($oldversion=0)
 {

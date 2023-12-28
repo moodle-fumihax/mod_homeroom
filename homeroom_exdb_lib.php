@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 //
 // Warpper functions for Autoattend Block and Attendance Module
